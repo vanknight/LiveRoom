@@ -1,0 +1,141 @@
+<?config version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.live.mapper.LiveRoomMapper">
+    <sql id="tableName">`live_room`</sql>
+
+
+
+    <resultMap id="liveRoomMap" type="com.live.pojo.LiveRoomExtend">
+        <id property="lrid" column="lrid"/>
+        <result property="roomid" column="roomid"/>
+        <result property="roomName" column="room_name"/>
+        <result property="endTime" column="end_time"/>
+        <result property="streamName" column="stream_name"/>
+        <result property="state" column="state"/>
+        <result property="uid" column="uid"/>
+        <association property="user" select="com.live.mapper.UserMapper.getUserExtendInfoByUid"
+                     column="uid"/>
+    </resultMap>
+    <resultMap id="liveRoomMap2" type="com.live.pojo.LiveRoom">
+        <id property="lrid" column="lrid"/>
+        <result property="roomid" column="roomid"/>
+        <result property="roomName" column="room_name"/>
+        <result property="endTime" column="end_time"/>
+        <result property="streamName" column="stream_name"/>
+        <result property="state" column="state"/>
+        <result property="uid" column="uid"/>
+    </resultMap>
+
+    <select id="getLiveRooms" resultMap="liveRoomMap2">
+        SELECT * FROM
+        <include refid="tableName"/>
+    </select>
+
+    <select id="getLiveRoomExtends" resultMap="liveRoomMap">
+        SELECT * FROM
+        <include refid="tableName"/>
+    </select>
+
+    <select id="getLiveRoomInfoByLrid" resultMap="liveRoomMap">
+        SELECT * FROM
+        <include refid="tableName"/>
+        WHERE `lrid`=#{lrid}
+    </select>
+
+    <select id="getLiveRoomInfoByRoomid" resultMap="liveRoomMap">
+        SELECT * FROM
+        <include refid="tableName"/>
+        WHERE `roomid`=#{roomid}
+    </select>
+
+    <select id="getLiveRoomInfoByUid" resultMap="liveRoomMap">
+        SELECT * FROM
+        <include refid="tableName"/>
+        WHERE `uid`=#{uid}
+    </select>
+
+
+    <update id="setStreamNameByUid">
+        UPDATE
+        <include refid="tableName"/>
+        <if test="streamName">
+            SET `stream_name`=#{streamName}
+        </if>
+        WHERE `uid`=#{uid}
+    </update>
+
+    <update id="setStateByUid">
+        UPDATE
+        <include refid="tableName"/>
+        <if test="state">
+            SET `state`=#{state}
+        </if>
+        WHERE `uid`=#{uid}
+    </update>
+
+    <update id="setRoomNameByUid">
+        UPDATE
+        <include refid="tableName"/>
+        <if test="state">
+            SET `room_name`=#{roomName}
+        </if>
+        WHERE `uid`=#{uid}
+    </update>
+
+
+    <insert id="addLiveRoom">
+        INSERT INTO
+        <include refid="tableName"/>
+        (
+        <trim suffixOverrides=",">
+            <if test="lrid != null">`lrid`,</if>
+            <if test="roomid != null">`roomid`,</if>
+            <if test="roomName != null">`room_name`,</if>
+            <if test="endTime != null">`end_time`,</if>
+            <if test="streamName != null">`stream_name`,</if>
+            <if test="state != null">`state`,</if>
+            <if test="uid != null">`uid`,</if>
+        </trim>
+        )VALUES(
+        <trim suffixOverrides=",">
+            <if test="lrid != null">#{lrid},</if>
+            <if test="roomid != null">#{roomid},</if>
+            <if test="roomName != null">#{roomName},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="streamName != null">#{streamName},</if>
+            <if test="state != null">#{state},</if>
+            <if test="uid != null">#{uid},</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateLiveRoomByLrid">
+        UPDATE
+        <include refid="tableName"/>
+        <trim prefix="SET " suffix="" suffixOverrides=",">
+            <if test="roomid != null">`roomid`=#{roomid},</if>
+            <if test="roomName != null">`room_name`=#{roomName},</if>
+            <if test="endTime != null">`end_Time`=#{endTime},</if>
+            <if test="streamName != null">`stream_name`=#{streamName},</if>
+            <if test="state != null">`state`=#{state},</if>
+            <if test="uid != null">`uid`=#{uid},</if>
+        </trim>
+        WHERE `lrid`=#{lrid}
+    </update>
+
+    <delete id="delLiveRoomByLrid">
+        DELETE FROM
+        <include refid="tableName"/>
+        WHERE `lrid`=#{lrid}
+    </delete>
+
+    <delete id="delLiveRoomByUid">
+        DELETE FROM
+        <include refid="tableName"/>
+        WHERE `uid`=#{uid}
+    </delete>
+
+</mapper>

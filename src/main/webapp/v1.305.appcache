@@ -1,0 +1,11 @@
+CACHE MANIFEST
+# version 1.305
+CACHE:
+static/js/init-show-animation.js
+static/js/vue.js
+static/css/init-show.css
+static/gift/default.png
+
+NETWORK:
+
+FALLBACK:

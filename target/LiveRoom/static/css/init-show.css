@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1) ;
+    -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1) ;
+    -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/*body {*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*color: rgba(255, 255, 255, 0.2);*/
+    /*-webkit-tap-highlight-color: transparent;*/
+    /*word-wrap: break-word;*/
+/*}*/
+
+.bgCover {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.full-box-fixed {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.full-box {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.text-overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+}
+
+.init-show-bg-grid-blink-square {
+    height: 75px;
+    width: 75px;
+    position: absolute;
+    opacity: 0;
+}
+
+.init-show-bg-grid-blink-square-animation {
+    animation: init-show-bg-grid-blink-square-frame 3s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+    -webkit-animation: init-show-bg-grid-blink-square-frame 3s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+}
+
+.init-show-bg {
+    background: #f3f3f3;
+    opacity: 0;
+    -webkit-transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -ms-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
+}
+
+#init-show-bg-grid {
+    background-size: 75px 75px;
+    background-image: -webkit-linear-gradient(top, transparent 74px, #c8c8c8 75px),
+    -webkit-linear-gradient(left, transparent 74px, #c8c8c8 75px);
+}
+
+#init-show-mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: -100%;
+    transition: left 1s ease 0s;
+}
+
+#init-show-square-small {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    /*transition: clip-path 1s ease 0s, -webkit-clip-path 1s ease 0s;*/
+    display: none;
+}
+
+#init-show-square-small-child {
+    text-align: center;
+    border: 0;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    animation: init-show-square-small-child-animate 20s linear 0s infinite normal none running;
+}
+
+
+#init-show-h-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    opacity: .8;
+    height: 2px;
+    width: 0;
+    transition: width 1s ease 0s;
+}
+
+#init-show-v-line {
+    position: absolute;
+    bottom: 0;
+    left: 47px;
+    z-index: 3;
+    opacity: .8;
+    width: 2px;
+    height: 0;
+    transition: height 1s ease 0s;
+}
+#init-show-font-holder {
+    position: absolute;
+    height: 172px;
+    left: 198px;
+    transform-origin: left center 0px;
+    transform: scale(1);
+}
+
+#init-show-font-head-father {
+    overflow: hidden;
+    position: absolute;
+    bottom: 87px;
+    left: 0;
+    height: 0;
+    transition: height 1s ease 0s;
+}
+
+#init-show-font-foot-father {
+    overflow: hidden;
+    position: absolute;
+    top: 87px;
+    right: 0;
+    height: 0;
+    transition: height 1s ease 0s;
+}
+
+#init-show-font-head {
+    transform-origin: right bottom 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-weight: bold;
+    line-height: 85px;
+    font-size: 64px !important;
+}
+
+#init-show-font-foot {
+    transform-origin: left top 0px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-weight: bold;
+    line-height: 37px;
+    font-size: 25px !important;
+}
+
+@keyframes init-show-bg-grid-blink-square-frame {
+    0% {
+        opacity: 0;
+    }
+    20%, 50% {
+        opacity: 0.2;
+    }
+    70%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes init-show-square-small-child-animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

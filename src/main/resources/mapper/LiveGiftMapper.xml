@@ -1,0 +1,59 @@
+<?config version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.live.mapper.LiveGiftMapper">
+    <sql id="tableName">`live_gift`</sql>
+
+    <resultMap id="liveGiftMap" type="com.live.pojo.LiveGift">
+        <id column="lgid" property="lgid"/>
+        <result column="name" property="name"/>
+        <result column="img" property="img"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+    <select id="getLiveGiftInfoByLgid" resultMap="liveGiftMap">
+        SELECT * FROM <include refid="tableName"/> WHERE `lgid` = #{lgid}
+    </select>
+    <select id="getLiveGifts" resultMap="liveGiftMap">
+        SELECT * FROM <include refid="tableName"/>  ORDER BY `price`
+    </select>
+    <insert id="insertGift">
+        INSERT INTO
+        <include refid="tableName"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lgid != null">`lgid`,</if>
+            <if test="name != null">`name`,</if>
+            <if test="describe != null">`describe`,</if>
+            <if test="img != null">`img`,</if>
+            <if test="price != null">`price`,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="lgid != null">#{lgid},</if>
+            <if test="name != null">#{name},</if>
+            <if test="describe != null">#{describe},</if>
+            <if test="img != null">#{img},</if>
+            <if test="price != null">#{price},</if>
+        </trim>
+    </insert>
+    <delete id="deleteGiftByLgid">
+        DELETE FROM <include refid="tableName"/>
+        WHERE `lgid`=#{lgid}
+    </delete>
+
+
+    <update id="updateLiveGiftByLgid">
+        UPDATE
+        <include refid="tableName"/>
+        <trim prefix="SET " suffix="" suffixOverrides=",">
+            <if test="name != null">`name`=#{name},</if>
+            <if test="describe != null">`describe`=#{describe},</if>
+            <if test="img != null">`img`=#{img},</if>
+            <if test="price != null">`price`=#{price},</if>
+        </trim>
+        WHERE `lgid`=#{lgid}
+    </update>
+
+
+</mapper>

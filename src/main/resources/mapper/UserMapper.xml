@@ -1,0 +1,104 @@
+<?config version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.live.mapper.UserMapper">
+    <sql id="tableName">`user`</sql>
+    <resultMap id="userMap" type="com.live.pojo.User">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="img" column="img"/>
+        <result property="sex" column="sex"/>
+        <result property="integral" column="integral"/>
+        <result property="wealth" column="wealth"/>
+        <result property="state" column="state"/>
+    </resultMap>
+    <resultMap id="userExtendMap" type="com.live.pojo.UserExtend">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="img" column="img"/>
+        <result property="sex" column="sex"/>
+        <result property="integral" column="integral"/>
+        <result property="wealth" column="wealth"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <select id="getUserInfoByUid" resultMap="userMap">
+        SELECT * FROM <include refid="tableName"/> WHERE `uid`=#{uid}
+    </select>
+
+    <select id="getUserExtendInfoByUid" resultMap="userExtendMap">
+        SELECT * FROM <include refid="tableName"/> WHERE `uid`=#{uid}
+    </select>
+
+    <select id="getUserList" resultMap="userExtendMap">
+        SELECT * FROM <include refid="tableName"/>
+    </select>
+
+    <update id="updateIntegralByUid">
+        UPDATE <include refid="tableName"/>
+        SET `integral`=#{integral} WHERE `uid`=#{uid}
+    </update>
+    <update id="updateWealthByUid">
+        UPDATE <include refid="tableName"/>
+        SET `wealth`=#{wealth} WHERE `uid`=#{uid}
+    </update>
+
+    <update id="updateUserByUid">
+        UPDATE <include refid="tableName"/>
+        SET
+        <trim suffixOverrides=",">
+            <if test="username != null">`username`=#{username},</if>
+            <if test="password != null">`password`=#{password},</if>
+            <if test="phone != null">`phone`=#{phone},</if>
+            <if test="email != null">`email`=#{email},</if>
+            <if test="img != null">`img`=#{img},</if>
+            <if test="sex != null">`sex`=#{sex},</if>
+            <if test="state != null">`state`=#{state},</if>
+            <if test="integral != null">`integral`=#{integral},</if>
+            <if test="wealth != null">`wealth`=#{wealth},</if>
+        </trim>
+        WHERE `uid`=#{uid}
+    </update>
+
+    <insert id="insertUser">
+        INSERT INTO
+        <include refid="tableName"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">`uid`,</if>
+            <if test="username != null">`username`,</if>
+            <if test="password != null">`password`,</if>
+            <if test="phone != null">`phone`,</if>
+            <if test="email != null">`email`,</if>
+            <if test="img != null">`img`,</if>
+            <if test="sex != null">`sex`,</if>
+            <if test="state != null">`state`,</if>
+            <if test="integral != null">`integral`,</if>
+            <if test="wealth != null">`wealth`,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">#{uid},</if>
+            <if test="username != null">#{username},</if>
+            <if test="password != null">#{password},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="img != null">#{img},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="state != null">#{state},</if>
+            <if test="integral != null">#{integral},</if>
+            <if test="wealth != null">#{wealth},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByUid">
+        DELETE FROM <include refid="tableName"/>
+        WHERE `uid`=#{uid}
+    </delete>
+
+</mapper>
