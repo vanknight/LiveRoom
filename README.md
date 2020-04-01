@@ -1,5 +1,4 @@
 # LiveRoom
-* [`演示Demo`](http://167.179.72.25:8080/LiveRoom/)`临时网站，无维护`
 > > * 这只是模仿!
 > * 仿照BiliBili直播间
 > * 初始页面学习了[蔷薇花园](https://iirose.com/)
